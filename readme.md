@@ -1,9 +1,9 @@
 <!-- # Bridging the Modality Gap: Semantic-Calibrated Zero-shot Speech Emotion Captioning with Self-Reward Alignment -->
 
 ## An illustration of our proposed model architecture.
-<div align="center">
+<!-- <div align="center">
 <img src="img/fig2_v2.png" alt="image" width="400" height="600">
-</div>
+</div> -->
 
 ## 1. Environment setting
 
