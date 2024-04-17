@@ -41,7 +41,7 @@ python merge_tokenizers.py \
 
 ## 4. Training
 
-# deepspeed + lora + frozen_bert finetuning LLM-based (Llama-2-7b) Decoder
+### deepspeed + lora + frozen_bert finetuning LLM-based (Llama-2-7b) Decoder
 
 ```bash
 ./stage2.sh
