@@ -17,7 +17,7 @@
   - deepspeed == 0.8.3
 
 
-* The complete code will be open source soon.
+
 
 <!-- ### 1.1. Dataset
 
@@ -50,7 +50,7 @@ Download the dataset from the above link to the 'noxi' folder.
 - [ ] SCCM Pre-training and Zero-shot Inference
 - [ ] stage3 (Self-Reward Finetuning)
 
-
+### The complete code will be open source soon.
 
 <!-- (more information: https://pytorch.org/tutorials/intermediate/ddp_tutorial.html) -->
 
