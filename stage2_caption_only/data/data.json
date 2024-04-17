@@ -1,0 +1,28 @@
+[
+    {
+        "wav": "0003_000898.wav",
+        "caption_ch1": "音频中的人情绪是生气的，说话的语调是平常的，语气是愤怒的，语速是中等的，声音变化是逐渐降低的。",
+        "caption_ch2": "这是一个女人在讲话，听起来他的语气是积极的。",
+        "caption_ch3": "音频中的人情绪是愉悦的。从说话的语调判断，声音中带有愉悦的语调。声音中的人在说中文：\"做一些好吃的促进宝宝的食欲\"。从说话的语速和语气，可以推断出这个人情绪是愉悦的。",
+        "caption_ch4": "这是一个女人在讲话，听起来他的语气是平常的。",
+        "caption_ch5": "音频中的人情绪是平静的。语音中是一个女人在讲话，说的内容是\"也不算他有的歌我挺喜欢的\"。声音中带有女人的语气，语速适中，语调平静。",
+        "caption_en1": "The audio is of a woman speaking, in a normal tone, with a fast speaking speed, saying, \"当然知道我们各有千秋\".",
+        "caption_en2": "Based on the voice, it sounds like this person is angry in the audio, and their emotions are also reflected in their tone of voice. They are angry about something, and you can hear it in their voice.",
+        "caption_en3": "This is a woman speaking, in a neutral tone, with a speaking speed of 144 words per minute. There are no obvious emotions detected in her voice.",
+        "caption_en4": "Based on the voice, it sounds like this person is neutral in the audio, and they are describing their emotions in a neutral way.",
+        "caption_en5": "This is a woman speaking, in a normal tone, with a speed of 125 words per minute. There are no notable intonations, tone changes, inner feelings, or voice changes in the audio."
+    },
+    {
+        "wav": "0003_000873.wav",
+        "caption_ch1": "音频中的人情绪是惊恐的。",
+        "caption_ch2": "这是一个女人在讲话，听起来他的语气是平常的。",
+        "caption_ch3": "音频中的人情绪是平静的。声音中带有女人说话的语气，语速适中，语调平静。",
+        "caption_ch4": "这是一个女人在讲话，听起来他的语气是消极的。",
+        "caption_ch5": "音频中的人情绪是愤怒的。说话的语调是消极的，语气是愤怒的，语速是正常的速度。",
+        "caption_en1": "The audio is of a woman speaking, in a normal tone, at a normal speed, with no apparent emotion.",
+        "caption_en2": "The audio is of a woman speaking, in a fast speed, with a fearful tone, saying, \"其实我们前天已经分手了\".",
+        "caption_en3": "This is a woman speaking, and her tone sounds negative. She is fearful in this recording.",
+        "caption_en4": "The audio is of a woman speaking, in a Chinese, with a neutral tone, at a normal speaking speed, and no obvious emotions.",
+        "caption_en5": "Based on the voice, it sounds like this person is fearful in the audio, and they are fearful for the reason that they are talking about a valuable item that they have lost."
+    }
+]
