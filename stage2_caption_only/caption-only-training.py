@@ -401,6 +401,10 @@ def train():
             "You are instantiating a new tokenizer from scratch. This is not supported by this script."
             "You can do it from another script, save it, and load it from here, using --tokenizer_name."
         )
+    ##################
+    logger.info("**********装载berttokenizer**********")
+    tokenizer_frombert = BertTokenizer.from_pretrained('./pretrain_bert')
+    
 
     logger.info("**********使用Lora方式装载模型**********")
     lora_config = LoraConfig(
@@ -451,6 +455,8 @@ def train():
     embedding_size = model.get_input_embeddings().weight.shape[0]
     if len(tokenizer) > embedding_size:
         model.resize_token_embeddings(len(tokenizer))
+    if len(tokenizer_frombert) > embedding_size:
+        model.resize_token_embeddings(len(tokenizer_frombert)) 
     if model_args.load_in_bits == 8:
         model = prepare_model_for_int8_training(model)
     elif model_args.load_in_bits == 4:
@@ -463,6 +469,12 @@ def train():
         0  # unk. we want this to be different from the eos token
     )
     tokenizer.padding_side = "left"  # Allow batched inference
+
+    tokenizer_frombert.pad_token_id = (
+        0  # unk. we want this to be different from the eos token
+    )
+    tokenizer_frombert.padding_side = "left" 
+
     if data_args.block_size is None:
         cutoff_len = 512
     else:
@@ -477,13 +489,28 @@ def train():
             padding=False,
             return_tensors=None,
         )
+        result_bert = tokenizer_frombert(prompt, truncation=True, max_length=cutoff_len, padding=False, add_special_tokens=False)
+        # if (
+        #     result["input_ids"][-1] != tokenizer.eos_token_id
+        #     and len(result["input_ids"]) < cutoff_len
+        #     and add_eos_token
+        # ):
+        #     result["input_ids"].append(tokenizer.eos_token_id)
+        #     result["attention_mask"].append(1)
+
         if (
-            result["input_ids"][-1] != tokenizer.eos_token_id
-            and len(result["input_ids"]) < cutoff_len
+            result_bert["input_ids"][-1] != tokenizer.eos_token_id
+            and len(result_bert["input_ids"]) < cutoff_len
             and add_eos_token
         ):
-            result["input_ids"].append(tokenizer.eos_token_id)
-            result["attention_mask"].append(1)
+            result_bert["input_ids"].append(tokenizer.eos_token_id)
+            result_bert["attention_mask"].append(1)
+        
+        if (result_bert["input_ids"][0] != tokenizer.bos_token_id):
+            tmp = [1].append(result_bert["input_ids"])
+            tmp = tmp.append(tokenizer.eos_token_id)
+            result_bert["input_ids"] = tmp
+            result_bert["attention_mask"].append(1)
 
         result["labels"] = result["input_ids"].copy()
 
