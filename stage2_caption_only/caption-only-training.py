@@ -507,9 +507,7 @@ def train():
             result_bert["attention_mask"].append(1)
         
         if (result_bert["input_ids"][0] != tokenizer.bos_token_id):
-            tmp = [1].append(result_bert["input_ids"])
-            tmp = tmp.append(tokenizer.eos_token_id)
-            result_bert["input_ids"] = tmp
+            result_bert["input_ids"].insert(0, tokenizer.bos_token_id)
             result_bert["attention_mask"].append(1)
 
         result["labels"] = result["input_ids"].copy()
