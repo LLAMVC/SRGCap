@@ -9,10 +9,13 @@ from dataclasses import dataclass, field
 from itertools import chain
 import deepspeed
 from typing import Dict, Optional, List, Union
-
+import pickle
 import datasets
 import evaluate
 import torch
+import nltk
+from typing import List
+from nltk.stem import WordNetLemmatizer
 from datasets import load_dataset
 from peft import (
     LoraConfig,
@@ -507,16 +510,45 @@ def train():
             result_bert["attention_mask"].append(1)
         
         if (result_bert["input_ids"][0] != tokenizer.bos_token_id):
-            result_bert["input_ids"].insert(0, tokenizer.bos_token_id)
+            tmp = [1].append(result_bert["input_ids"])
+            tmp = tmp.append(tokenizer.eos_token_id)
+            result_bert["input_ids"] = tmp
             result_bert["attention_mask"].append(1)
 
         result["labels"] = result["input_ids"].copy()
-
         return result
 
+
+    def get_clues_from_caption(captions):
+        # writing list file, i.e., [[caption1],[caption2], ...] 
+        clues_tags = set(['MD', 'UH', 'RB', 'RBR', 'RBS', 'JJ', 'JJR', 'JJS'])  # 形容词，副词作为 emotion clues
+        lemmatizer = WordNetLemmatizer()
+        new_clues = []
+        for caption in captions:
+            detected_clues = []
+            pos_tags = nltk.pos_tag(nltk.word_tokenize(caption)) 
+            for clues_with_pos in pos_tags:
+                if clues_with_pos[1] in clues_tags:
+                    clue = lemmatizer.lemmatize(clues_with_pos[0].lower().strip())
+                    detected_clues.append(clue)
+            detected_clues = list(set(detected_clues))
+            new_clues.append(detected_clues)
+        return new_clues
+
+
+
     def generate_and_tokenize_prompt(data_point):
+
+        clues_list = get_clues_from_caption(data_point["input"])  # [[clue1, clue2,...], [clue1, clue2,...], ...]
+        clues = clues_list[0]
+        placeholders = ', '.join(['{}'] * len(clues))
+        # 构建最终的模板字符串
+        acoustic_template = f'Feeling {placeholders}.'
+        ac_prompt = acoustic_template.format(*clues)
+
         full_prompt = prompter.generate_prompt(
             data_point["instruction"],
+            ac_prompt,
             data_point["input"],
             data_point["output"],
         )

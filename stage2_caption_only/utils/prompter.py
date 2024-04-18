@@ -28,6 +28,7 @@ class Prompter(object):
     def generate_prompt(
         self,
         instruction: str,
+        clue: Union[None, str] = None,
         input: Union[None, str] = None,
         label: Union[None, str] = None,
     ) -> str:
@@ -35,7 +36,7 @@ class Prompter(object):
         # if a label (=response, =output) is provided, it's also appended.
         if input:
             res = self.template["prompt_input"].format(
-                instruction=instruction, input=input
+                instruction=instruction, clue=clue, input=input
             )
         else:
             res = self.template["prompt_no_input"].format(

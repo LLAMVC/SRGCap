@@ -60,3 +60,52 @@ def load_captions(name_of_datasets: str, path_of_datasets: str) -> List[str]:
     print('The datasets for training fail to load!')
 
 
+
+
+def load_MER23_clues(path: str, all_clues: bool = True) -> List[str]:
+
+    with open(path, 'rb') as infile:
+        all_objects_attributes_relationships = pickle.load(infile) # dictionary {'relationships': dict, 'attributes': dict, 'objects': dict}
+    clues = all_objects_attributes_relationships['objects']     # dictionary {'gqa': set, 'vg': set, 'joint': set}, joint = gqa + vg
+    clues = clues['joint']                                   # set
+    
+    if all_clues:
+        clues = [clue.lower().strip() for clue in clues]
+    else:
+        clues = [clue.lower().strip() for clue in clues if len(clue.split()) == 1]
+    clues.sort()  # sort
+
+    return clues
+
+def load_EMOSEC_clues(path: str, all_clues: bool = True) -> List[str]:
+
+    with open(path, 'r') as infile:
+        clues = json.load(infile)       # List [category1, category2, ...]
+    
+    if all_clues:
+        clues = [clue.lower().strip() for clue in clues]
+    else:
+        clues = [clue.lower().strip() for clue in clues if len(clue.split()) == 1]
+    clues.sort()  # sort
+
+    return clues
+
+
+
+def load_clues_text(name_of_clues: str, path_of_clues: str, all_clues: bool = True) -> List[str]:
+    """
+    Args:
+        name_of_clues: specifying the name of clues text
+        path_of_clues: specifying the path of clues text
+        all_clues: whether to apply all clues text. True denotes using clues including len(clues.split()) > 1
+    Return:
+        [clue1, clue2, ...]
+    """
+    if name_of_clues == 'MER23_clues':
+        return load_MER23_clues(path_of_clues, all_clues)
+    
+    if name_of_clues == 'EMOSEC_clues':
+        return load_EMOSEC_clues(path_of_clues, all_clues)
+
+    
+    print('The clues text fails to load!')
