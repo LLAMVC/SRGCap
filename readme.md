@@ -47,7 +47,8 @@ Download the dataset from the above link to the 'noxi' folder.
 
 - [x] stage1 (Semantic Align Pre-training)
 - [x] stage2 (Caption-only Training)
-- [ ] SCCM Pre-training and Zero-shot Inference
+- [x] SCCM Pre-training
+- [ ] Zero-shot Inference
 - [ ] stage3 (Self-Reward Finetuning)
 
 ### The complete code will be open source soon.
