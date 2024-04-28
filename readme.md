@@ -41,7 +41,7 @@ Download the dataset from the above link to the 'noxi' folder.
 
 - [x] Windows10
 - [x] Ubuntu20.04
-- [x] GPU V100*4 16G
+- [x] GPU V100-16G * 4
 
 ## 2. Train
 
